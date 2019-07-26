@@ -1,0 +1,13 @@
+mat-card {
+    background-color: bisque;
+    margin: 5px;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+mat-icon {
+    cursor: pointer;
+}  

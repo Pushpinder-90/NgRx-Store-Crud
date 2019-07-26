@@ -1,0 +1,63 @@
+{
+   "userList": [
+      {
+         "id": 1,
+         "username": "Admin",
+         "password": "admin",
+         "address": "Chandigarh",
+         "dob": ""
+      },
+      {
+         "id": 2,
+         "username": "Tinku",
+         "password": "admin",
+         "address": "Mohali",
+         "dob": ""
+      },
+      {
+         "id": 3,
+         "username": "Raju",
+         "password": "admin",
+         "address": "Bangaluru",
+         "dob": ""
+      },
+      {
+         "id": 4,
+         "username": "Dimpy",
+         "password": "admin",
+         "address": "Chandigarh",
+         "dob": ""
+      },
+      {
+         "id": 5,
+         "username": "Monty",
+         "password": "admin",
+         "address": "Mohali",
+         "dob": ""
+      },
+      {
+         "id": 6,
+         "username": "Krishan",
+         "password": "admin",
+         "address": "Bangaluru",
+         "dob": ""
+      }
+   ]
+}
+
+
+// const newState = {
+            //     ...state,
+            //     userIds: _map(users, 'id'),
+            //     userEntities: _reduce(users, (entities , user) => {
+            //         entities[user.id] = {
+            //             id: user.id,
+            //             username: user.username,
+            //             password: user.password,
+            //             address: user.address
+            //         };
+            //         return entities;
+            //         }),
+            //     loading: false,
+            //     blockUi: false
+            // };

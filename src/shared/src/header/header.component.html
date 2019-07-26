@@ -1,0 +1,35 @@
+<div class="container">
+  <mat-toolbar color="primary">
+    <a routerLink="/app">
+      Profile
+    </a>
+    <button mat-icon-button [matMenuTriggerFor]="appMenu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <span></span>
+    <a routerLink="/">
+      <mat-icon>logout</mat-icon>
+    </a>
+  </mat-toolbar>
+</div>
+
+
+
+<mat-menu #appMenu="matMenu">
+  <p mat-menu-item>
+    Profile
+  </p>
+  <mat-divider></mat-divider>
+  <button mat-menu-item (click)="onUsers()">
+    <mat-icon>view_list</mat-icon>Users
+  </button>
+  <button mat-menu-item (click)="onAddUser()">
+    <mat-icon>add_cart</mat-icon>Add User
+  </button>
+  <button mat-menu-item>
+    <mat-icon>update</mat-icon>Update User
+  </button>
+  <button mat-menu-item>
+    <mat-icon>delete</mat-icon>Remove User
+  </button>
+</mat-menu>
