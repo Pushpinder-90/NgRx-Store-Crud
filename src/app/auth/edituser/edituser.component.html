@@ -1,3 +1,53 @@
-<p>
-  edituser works!
-</p>
+<div class="container">
+  <mat-card>
+    <mat-card-title>
+     Edit User
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+        <table>
+          <tr>
+            <td>
+              <mat-form-field class="demo-full-width">
+                <input matInput formControlName="username" placeholder="UserName">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="demo-full-width">
+                <input matInput type="password" formControlName="password" placeholder="Password">
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field class="demo-full-width">
+                <input matInput formControlName="enroll_id" placeholder="Enrollment Id">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="demo-full-width">
+                <textarea matInput formControlName="address" placeholder="Address" matTextareaAutosize
+                  matAutosizeMaxRows="5"></textarea>
+              </mat-form-field>
+            </td>
+          </tr>
+          <!-- <tr>
+            <td colspan="2">
+              <mat-form-field class="demo-full-width">
+                <input matInput formControlName="dob" [matDatepicker]="picker" placeholder="Date of birth">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker touchUi="true" #picker></mat-datepicker>
+              </mat-form-field>
+            </td>
+          </tr> -->
+          <tr>
+            <td colspan="2" class="content-center">
+                <button mat-raised-button type="submit" color="primary">Save</button>
+              <button mat-raised-button type="button" color="primary">Clear</button>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
