@@ -1,6 +1,6 @@
 import { ActionUnion, ActionTypes } from './actions';
 import { User } from '../users';
-import { map as _map, keyBy as _keyBy, reduce as _reduce, find as _find } from 'lodash'
+import { omit as _omit, map as _map, keyBy as _keyBy, reduce as _reduce, find as _find } from 'lodash'
 import { _iterableDiffersFactory } from '@angular/core/src/application_module';
 
 
@@ -38,16 +38,13 @@ export function reducer(state: FeatureState = initialstate, action: ActionUnion)
 
         case ActionTypes.Load_USER_SUCCESS: {
             const users = action.payload
-            const updateIDs = _map(users, '_id')
-            const updateEntities = _keyBy(users, '_id')
             const newState = {
                 ...state,
-                userIds: updateIDs,
-                userEntities: updateEntities,
+                userIds: _map(users, '_id'),
+                userEntities: _keyBy(users, '_id'),
                 loading: false,
                 blockUi: false
             }
-
             return newState;
         }
 
@@ -55,24 +52,25 @@ export function reducer(state: FeatureState = initialstate, action: ActionUnion)
         case ActionTypes.ADD_USER: {
             const newState = {
                 ...state,
+                loading: true,
             };
             return newState;
         }
 
         case ActionTypes.ADD_USER_SUCCESS: {
-            const user = action.payload;
+            const newUser = action.payload;
             const uIds = [
                 ...state.userIds,
-                user._id
+                newUser.id
             ];
             const uEntities = {
                 ...state.userEntities
             }
-            uEntities[user._id] = {
-                enroll_id: user._id,
-                username: user.username,
-                password: user.password,
-                address: user.address
+            uEntities[newUser.id] = {
+                enroll_id: newUser.id,
+                username: newUser.data['username'],
+                password: newUser.data['password'],
+                address: newUser.data['address']
             };
             const newState = {
                 ...state,
@@ -80,6 +78,29 @@ export function reducer(state: FeatureState = initialstate, action: ActionUnion)
                 userEntities: uEntities,
                 loading: false,
                 blockUi: false
+            }
+            return newState
+        }
+
+
+        /** Delete User */
+        case ActionTypes.DELETE_USER: {
+            const newState = {
+                ...state,
+                loading: true,
+            };
+            return newState;
+        }
+
+        case ActionTypes.DELETE_USER_SUCCESS: {
+            const payload = action.payload;
+            const user_id = payload.id;
+            const uIds = state.userIds.filter(id => id !== user_id);
+            const uEntities = _omit(state.userEntities, user_id);
+            const newState = {
+                ...state,
+                userIds: uIds,
+                userEntities: uEntities
             }
             return newState
         }
