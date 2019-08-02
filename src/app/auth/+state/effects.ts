@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
-    ActionTypes, AddUser, AddUserFailed, AddUserSuccess,
-    LoadUser, LoadUserError, LoadUserSuccess, EditUser, EditUserSuccess, EditUserFailure, SetSelectedUser
+    ActionTypes, SetSelectedUser,
+    AddUser, AddUserFailed, AddUserSuccess,
+    LoadUser, LoadUserError, LoadUserSuccess,
+    EditUser, EditUserSuccess, EditUserFailure,
+    DeleteUser, DeleteUserSuccess, DeleteUserFailure
 } from './actions';
 import { DataPersistence } from '@nrwl/nx'
 import { Effect } from '@ngrx/effects';
@@ -21,12 +24,11 @@ export class Effects {
     addUser$ = this.persistence.fetch(ActionTypes.ADD_USER, {
         run: (action: AddUser, state: FeatureState) => {
             return this.api.addUser$(action.payload).pipe(
-                // tap(response => console.log('addUser$ Response :',response)),
+                tap(response => console.log('Add User- Effect  :', response)),
                 mergeMap(response => [
                     new AddUserSuccess(response),
-                    new SetSelectedUser(response.enroll_id)
-                ],
-                )
+                    new SetSelectedUser(response['id'])
+                ])
             )
         },
         onError: (action: AddUser, error) => {
@@ -49,20 +51,39 @@ export class Effects {
 
     @Effect()
     editUser$ = this.persistence.fetch(ActionTypes.EDIT_USER, {
-        run: (action: EditUser,state: any) => {
+        run: (action: EditUser, state: any) => {
             const fState: FeatureState = state.users;
             const selectedUser = fState.userEntities[fState.selectedUser]
-            const payload={
+            const payload = {
                 ...action.payload,
-                username: selectedUser.username
+                enroll_id: selectedUser['_id'],
             }
             return this.api.editUser$(payload).pipe(
                 map(response => new EditUserSuccess(response))
             )
-         },
-        onError: (action: EditUser, error) => { 
+        },
+        onError: (action: EditUser, error) => {
             new EditUserFailure(error)
         }
+    });
+
+
+    @Effect()
+    deleteUser$ = this.persistence.fetch(ActionTypes.DELETE_USER, {
+        run: (action: DeleteUser, state: FeatureState) => {
+            const user = action.payload
+            const payload = user['_id'] 
+            console.log('Effects _id_payload :', payload)
+            return this.api.deleteUser$(payload).pipe(
+                map(response => {
+                    console.log('Delete Response', response)
+                    return new DeleteUserSuccess(response)
+                })
+            )
+        },
+        onError: (action: DeleteUser, error) => {
+            new DeleteUserFailure(error)
+        }
     })
-    
+
 }
