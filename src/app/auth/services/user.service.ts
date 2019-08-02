@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { _MatPaginatorBase } from '@angular/material';
 import { map as _map } from 'lodash';
-import { map ,tap} from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { User } from '../users';
 
 @Injectable({
@@ -13,7 +13,8 @@ export class UserService {
 
   private getAllUsersUrl = 'api/users';
   private addUserUrl = 'api/createUser';
-  private editUserUrl = 'api/createUser';
+  private editUserUrl = 'api/editUser';
+  private deleteUserUrl = 'api/users/';
 
   constructor(
     private httpClient: HttpClient
@@ -22,6 +23,7 @@ export class UserService {
   addUser$(user: any): Observable<User> {
     return this.httpClient.post<any>(this.addUserUrl, user).pipe(
       map(result => {
+        console.log('Add User : ', result)
         return result
       })
     )
@@ -35,13 +37,24 @@ export class UserService {
     )
   }
 
-  editUser$(updatedUser: User): Observable<any>{
+  editUser$(updatedUser: User): Observable<any> {
     return this.httpClient.post<any>(this.editUserUrl, updatedUser).pipe(
-      tap(result => console.log('resule : ',result)),
+      tap(result => console.log('result : ', result)),
       map(result => {
         return result
       })
     )
   }
+
+  deleteUser$(userId: any): Observable<any> {
+    return this.httpClient.delete<any>(this.deleteUserUrl+userId).pipe(
+      tap(result => console.log('result : ', result)),
+      map(result => {
+        console.log('result : ', result);
+        return result
+      })
+    )
+  }
+
 }
 
