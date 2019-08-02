@@ -3,14 +3,19 @@
     <ng-container *ngIf="users$ | async">
       <mat-card *ngFor="let user of users$ | async">
         <mat-card-title>
-          <a (click)="onEdit()">
-            <mat-icon>edit</mat-icon>
-          </a>
-          {{user.username}}</mat-card-title>
+          {{user.username}} <span></span>
+          <button mat-icon-button (click)="details(user)">
+            <mat-icon>Detail</mat-icon>
+          </button>
+          <button mat-icon-button (click)="onDelete(user)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-title>
+        <mat-divider></mat-divider>
         <mat-card-content>
           <article>
-              Enrollment_id : {{user.enroll_id}}<br>
-              City : {{user.address}}
+            User_id : {{user['_id']}}<br>
+            <!-- City : {{user.address}} -->
           </article>
         </mat-card-content>
       </mat-card>
