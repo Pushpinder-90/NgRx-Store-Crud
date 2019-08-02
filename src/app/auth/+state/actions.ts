@@ -14,6 +14,14 @@ export enum ActionTypes {
     ADD_USER_SUCCESS = '[User] Add User Success',
     ADD_USER_FAILURE = '[User] Add User Failure',
 
+    USER_DETAIL = '[User] Add User',
+    USER_DETAIL_SUCCESS = '[User] Add User Success',
+    USER_DETAIL_FAILURE = '[User] Add User Failure',
+
+    DELETE_USER = '[User] DELETE User',
+    DELETE_USER_SUCCESS = '[User] DELETE User Success',
+    DELETE_USER_FAILURE = '[User] DELETE User Failure',
+
     EDIT_USER = '[User] Edit User',
     EDIT_USER_SUCCESS = '[User] Edit User Success',
     EDIT_USER_FAILURE = '[User] Edit User Failure',
@@ -21,6 +29,21 @@ export enum ActionTypes {
     SET_SELECTED_USER = '[User] Set Selected User',
 }
 
+
+export class DeleteUser implements Action {
+    readonly type = ActionTypes.DELETE_USER;
+    constructor(public payload: any ) { }
+}
+
+export class DeleteUserSuccess implements Action {
+    readonly type = ActionTypes.DELETE_USER_SUCCESS;
+    constructor(public payload: any) { }
+}
+
+export class DeleteUserFailure implements Action {
+    readonly type = ActionTypes.DELETE_USER_FAILURE;
+    constructor(public payload: string) { }
+}
 
 export class EditUser implements Action {
     readonly type = ActionTypes.EDIT_USER;
@@ -67,6 +90,21 @@ export class AddUserFailed implements Action {
     constructor(public payload: string) { }
 }
 
+export class UserDetail implements Action {
+    readonly type = ActionTypes.USER_DETAIL;
+    constructor(public payload: any) { }
+}
+
+export class UserDetailSuccess implements Action {
+    readonly type = ActionTypes.USER_DETAIL_SUCCESS;
+    constructor(public payload: any) { }
+}
+
+export class UserDetailFailed implements Action {
+    readonly type = ActionTypes.USER_DETAIL_FAILURE;
+    constructor(public payload: string) { }
+}
+
 //  --- Set Selection
 
 export class SetSelectedUser implements Action {
@@ -81,6 +119,12 @@ export type ActionUnion = AddUser
     | LoadUser
     | LoadUserSuccess
     | LoadUserError
+    | DeleteUser
+    | DeleteUserSuccess
+    | DeleteUserFailure
+    | UserDetail
+    | UserDetailSuccess
+    | UserDetailFailed
     | EditUser
     | EditUserSuccess
     | EditUserFailure
